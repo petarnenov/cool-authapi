@@ -1,7 +1,5 @@
 export const userNotFound = (res) =>
   res.status(404).json({ status: "fail", message: "User not found" });
-export const unauthorizedAction = (res) =>
-  res.status(401).json({ status: "fail", message: "Unauthorized action" });
 export const invalidToken = (res) =>
   res.status(403).json({ status: "fail", message: "Invalid token" });
 export const userNameAndPasswordRequired = (res) =>
@@ -16,7 +14,7 @@ export const userDeletedOrDeactivated = (res) =>
     .json({ status: "fail", message: "User has been deleted or deactivated" });
 export const usernameOrPasswordIncorrect = (res) =>
   res
-    .status(401)
+    .status(400)
     .json({ status: "fail", message: "Username or password is incorrect" });
 export const invalidRequest = (res) =>
   res.status(400).json({ status: "fail", message: "Invalid request" });

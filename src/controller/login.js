@@ -11,13 +11,13 @@ const login = async (req, res) => {
       return response.error.userNameAndPasswordRequired(res);
     }
   
-    const foundUsers = await query.auth.getUserByName(username);
+    const userQuery = await query.auth.getUserByName(username);
   
-    if (!foundUsers.rows.length) {
+    if (!userQuery.rows.length) {
       return response.error.userNotFound(res);
     }
   
-    const user = foundUsers.rows[0];
+    const user = userQuery.rows[0];
     if (!user.active) {
       return response.error.userDeletedOrDeactivated(res);
     }

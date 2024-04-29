@@ -18,25 +18,27 @@ const updateUserById = async (req, res) => {
   const { admin, id: userId } = decodedToken;
 
   if (!(admin || userId === id)) {
-    return response.error.unauthorizedAction(res);
+    return response.error.userNotAuthenticated(res);
   }
 
-  const foundUsers = await query.auth.getUserById(id);
+  const userQuery = await query.auth.getUserById(id);
 
-  if (!foundUsers.rows.length) {
+  if (!userQuery.rows.length) {
     return response.error.userNotFound(res);
   }
 
-  const user = foundUsers.rows[0];
+  const user = userQuery.rows[0];
 
   if (!user.active) {
     return response.error.userDeletedOrDeactivated(res);
   }
 
-  const updatedUser = await query.auth.updateUserById({
+  const updateUserQuery = await query.auth.updateUserById({
     ...updatedData,
     id,
   });
+
+  const updatedUser = updateUserQuery.rows[0];
 
   const payload = {
     username: updatedUser.username,

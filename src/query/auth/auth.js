@@ -1,5 +1,11 @@
 import pool from "../../pg/index.js";
 
+export const createUser = async({username,password})=>{
+  return await pool.query(
+    "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING username, id, admin",
+    [username, password]);
+}
+
 export const getUserByName = async (username) => {
   return await pool.query("SELECT * FROM users WHERE username = $1", [
     username,
