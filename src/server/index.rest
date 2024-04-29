@@ -1,0 +1,63 @@
+//user login
+POST http://localhost:3001/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "foo",
+    "password": "foo"
+}
+###
+//admin login
+POST http://localhost:3001/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "dd",
+    "password": "dd"
+}
+###
+
+POST http://localhost:3001/api/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "username": "cool",
+    "password": "cool"
+}   
+###
+
+GET http://localhost:3001/api/auth/user/54174944-fba6-42f7-a6ec-12e264cb4f03 HTTP/1.1
+###
+
+DELETE http://localhost:3001/api/auth/user/899aa8c5-400b-43c8-8389-e9e51f6c6baa HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTQ0MDU2NDEsImV4cCI6MTcxNDQwNTY2MX0.l9CR98D5ly86w71o6ubf6Xk0PritLxQ4oiy4D9TKoSY
+ 
+###
+
+PUT http://localhost:3001/api/auth/user/54174944-fba6-42f7-a6ec-12e264cb4f03 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNzE0NDA3NzI4LCJleHAiOjE3MTQ0MDgwMjh9.6OIgAwkqaTUep94Vinu-MmyJRkSNS6wzOaP5TVHiC5g
+
+{
+    "admin": true
+}
+
+###
+//admin refresf
+GET http://localhost:3001/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNzE0NDA4ODIxLCJleHAiOjE3MTQ0MDg4NDF9.d9QsPBLqH3w-LbMfFYA1xZ57LxX4Lw7NiUSDKynKsXo
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNzE0NDEyNjg0LCJleHAiOjE3MTQ0OTkwODR9.1K3OkUIEj77rYXAmyKQkMqXHRQ-FL9Ag6s13zvBHGJY"
+}
+
+###
+//logour
+GET http://localhost:3001/api/auth/logout HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNzE0NDA4ODIxLCJleHAiOjE3MTQ0MDg4NDF9.d9QsPBLqH3w-LbMfFYA1xZ57LxX4Lw7NiUSDKynKsXo
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRkIiwiaWQiOiI1NDE3NDk0NC1mYmE2LTQyZjctYTZlYy0xMmUyNjRjYjRmMDMiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNzE0NDEyNjg0LCJleHAiOjE3MTQ0OTkwODR9.1K3OkUIEj77rYXAmyKQkMqXHRQ-FL9Ag6s13zvBHGJY"
+}

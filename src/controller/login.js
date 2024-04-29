@@ -1,0 +1,50 @@
+import bcrypt from "bcrypt";
+import query from "../query/index.js";
+import response from "../response/index.js";
+import jwt from "../jwt/index.js";
+import redis from "../redis/index.js";
+
+const login = async (req, res) => {
+    const { username, password } = req.body;
+  
+    if (!username || !password) {
+      return response.error.userNameAndPasswordRequired(res);
+    }
+  
+    const foundUsers = await query.auth.getUserByName(username);
+  
+    if (!foundUsers.rows.length) {
+      return response.error.userNotFound(res);
+    }
+  
+    const user = foundUsers.rows[0];
+    if (!user.active) {
+      return response.error.userDeletedOrDeactivated(res);
+    }
+  
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return response.error.userNameAndPasswordRequired(res);
+    }
+  
+    const accessToken = jwt.createAccessToken({
+      username,
+      id: user.id,
+      admin: user.admin,
+    });
+    const refreshToken = jwt.createRefreshToken({ username, id: user.id ,admin: user.admin});
+
+    await redis.client.multi().lPush(user.id, refreshToken).exec();
+
+    const payload = {
+      accessToken,
+      refreshToken,
+      username,
+      id: user.id,
+      admin: user.admin,
+    };
+  
+    response.success.login(payload)(res);
+  };
+  
+  export default login;
