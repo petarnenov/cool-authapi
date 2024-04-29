@@ -1,5 +1,5 @@
 const cors = {
-    // eslint-disable-next-line no-undef
+     
     origin:
       process.env.NOD_ENV === "production"
         ? false

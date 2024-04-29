@@ -1,17 +1,17 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-dotenv.config();
+  dotenv.config();
 
 const secret = process.env.JWT_SECRET;
 
-export const createAccessToken = (payload, expiresIn="5min") => {
+export const createAccessToken = (payload, expiresIn = "5min") => {
   return jwt.sign(payload, secret, {
     expiresIn,
   });
 };
 
-export const createRefreshToken = (payload, expiresIn="1d") => {
+export const createRefreshToken = (payload, expiresIn = "1d") => {
   return createAccessToken(payload, expiresIn);
 };
 
@@ -48,4 +48,3 @@ export const getDecodedRefreshToken = async (req) => {
   }
   return await verify(refreshToken);
 }
-
