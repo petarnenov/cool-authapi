@@ -1,1 +1,7 @@
 node_modules
+.vscode
+.env
+docker-compose.yml
+Docekerfile
+Makefile
+package-lock.json
