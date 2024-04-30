@@ -1,48 +1,56 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-  dotenv.config();
+dotenv.config();
 
 const secret = process.env.JWT_SECRET;
+const accessTokenExpiresIn = process.env.JWT_ACCESS_TOKEN_EXPIRES_IN || "5min";
+const refreshTokenExpiresIn = process.env.JWT_REFRESH_TOKEN_EXPIRES_IN || "1d";
 
-export const createAccessToken = (payload, expiresIn = "5min") => {
+const createToken = (payload, expiresIn) => {
   return jwt.sign(payload, secret, {
     expiresIn,
   });
+}
+
+export const createAccessToken = (payload) => {
+  return createToken(payload, accessTokenExpiresIn);
 };
 
-export const createRefreshToken = (payload, expiresIn = "1d") => {
-  return createAccessToken(payload, expiresIn);
+export const createRefreshToken = (payload) => {
+  return createToken(payload, refreshTokenExpiresIn);
 };
 
 export const verify = (token) =>
   new Promise((resolve) => {
     jwt.verify(token, secret, (error, decoded) => {
       if (error) {
-        resolve(null)
+        console.error("invalid token: ",token);
+        return resolve(null)
       }
+      console.log("valid token: ",decoded);
       resolve(decoded);
     });
   });
 
-export const decode = (token) => {
-  return jwt.decode(token);
-};
-
-export const getToken = (req) => {
+export const getAccessToken = (req) => {
   return req.headers.authorization?.split(" ")[1];
 };
 
 export const getDecodedAccessToken = async (req) => {
-  const token = getToken(req);
+  const token = getAccessToken(req);
   if (!token) {
     return null;
   }
   return await verify(token);
 }
 
+export const getRefreshToken = (req) => {
+  return req.body.refreshToken;
+};
+
 export const getDecodedRefreshToken = async (req) => {
-  const refreshToken = req.body.refreshToken;
+  const refreshToken = getRefreshToken(req);
   if (!refreshToken) {
     return null;
   }

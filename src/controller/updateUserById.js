@@ -9,13 +9,13 @@ const updateUserById = async (req, res) => {
     return response.error.invalidRequest(res);
   }
 
-  const decodedToken = req.decodedToken;
+  const currentUser = req.user;
 
-  if (!decodedToken) {
+  if (!currentUser) {
     return response.error.invalidToken(res);
   }
 
-  const { admin, id: userId } = decodedToken;
+  const { admin, id: userId } = currentUser;
 
   if (!(admin || userId === id)) {
     return response.error.userNotAuthenticated(res);

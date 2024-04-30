@@ -19,12 +19,14 @@ app.post("/api/auth/signup", controller.signUp);
 //login
 app.post("/api/auth/login", controller.login);
 //logout
-app.get("/api/auth/logout", middleware.authentication,controller.logout);
+app.post("/api/auth/logout", middleware.authentication,controller.logout);
 //refresh token
-app.get("/api/auth/refresh", controller.refreshToken);
+app.post("/api/auth/refresh", controller.refreshToken);
 //delete user
 app.delete("/api/auth/user/:id", middleware.authentication, controller.deleteUserById);
 //update user
 app.put("/api/auth/user/:id", middleware.authentication, controller.updateUserById);
+//get all users
+app.get("/api/auth/user", middleware.authentication, controller.getAllUsers);
 
 export default app;

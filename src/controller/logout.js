@@ -3,13 +3,18 @@ import jwt from "../jwt/index.js";
 import redis from "../redis/index.js";
 
 export const logout = async (req, res) => {
-  const decodedRefreshToken = await jwt.getDecodedRefreshToken(req);
-  if (!decodedRefreshToken) {
-    return response.error.userNotAuthenticated(res);
-  }
+  const user = req.user;  
+  const accessToken = jwt.getAccessToken(req);
+  const refreshToken = jwt.getRefreshToken(req);
+  const decodedRefreshToken = jwt.getDecodedRefreshToken(req);
 
-  const { refreshToken } = req.body;
-  await redis.client.multi().lRem(decodedRefreshToken.id, 0, refreshToken).exec();
+  if(!decodedRefreshToken){
+    await redis.query.deleteAccessToken(user.id)(accessToken);
+    return response.error.userNotAuthenticated(res);
+  }  
+
+  await redis.query.deleteAccessToken(user.id)(accessToken);
+  await redis.query.deleteRefreshToken(user.id)(refreshToken);
 
   response.success.logout(res);
 };

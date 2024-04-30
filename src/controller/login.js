@@ -34,7 +34,8 @@ const login = async (req, res) => {
     });
     const refreshToken = jwt.createRefreshToken({ username, id: user.id ,admin: user.admin});
 
-    await redis.client.multi().lPush(user.id, refreshToken).exec();
+    await redis.query.setAccessToken(user.id)(accessToken);
+    await redis.query.setRefreshToken(user.id)(refreshToken); 
 
     const payload = {
       accessToken,

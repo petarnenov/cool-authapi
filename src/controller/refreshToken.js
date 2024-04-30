@@ -9,18 +9,15 @@ const refreshToken = async (req, res) => {
     return response.error.userNotAuthenticated(res);
   }
 
-  const { refreshToken } = req.body;  
-  const tokenStack = await redis.client
-    .multi()
-    .lRange(decodedRefreshToken.id, 0, -1)
-    .exec();
-  if (!tokenStack[0].includes(refreshToken)) {
-    await redis.client.multi().del(decodedRefreshToken.id).exec();
+  const refreshToken = jwt.getRefreshToken(req); 
+
+  const tokenExists = await redis.query.getRefreshToken(decodedRefreshToken.id)(refreshToken);
+
+  if(!tokenExists){
     return response.error.userNotAuthenticated(res);
   }
 
-  //TODO: export all redis commands to a separate file
-  await redis.client.multi().lRem(decodedRefreshToken.id, 0, refreshToken).exec();
+  await redis.query.deleteRefreshToken(decodedRefreshToken.id)(refreshToken);
 
   const newAccessToken = jwt.createAccessToken({
     username: decodedRefreshToken.username,
@@ -33,7 +30,8 @@ const refreshToken = async (req, res) => {
     admin: decodedRefreshToken.admin,
   });
 
-  await redis.client.multi().lPush(decodedRefreshToken.id, newRefreshToken).exec();
+  await redis.query.setAccessToken(decodedRefreshToken.id)(newAccessToken);
+  await redis.query.setRefreshToken(decodedRefreshToken.id)(newRefreshToken);
 
   const payload = {
     accessToken: newAccessToken,

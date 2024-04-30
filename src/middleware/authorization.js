@@ -1,7 +1,7 @@
 const authorization =
   (authorizedRoles = []) =>
   (req, res, next) => {
-    const { role } = req.decodedToken;
+    const { role } = req.user;
     if (!role) {
       return res.status(401).json({ status: "Unauthorized action" });
     }
