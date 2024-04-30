@@ -24,11 +24,9 @@ export const createRefreshToken = (payload) => {
 export const verify = (token) =>
   new Promise((resolve) => {
     jwt.verify(token, secret, (error, decoded) => {
-      if (error) {
-        console.error("invalid token: ",token);
+      if (error) {        
         return resolve(null)
-      }
-      console.log("valid token: ",decoded);
+      }     
       resolve(decoded);
     });
   });

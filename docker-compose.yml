@@ -2,19 +2,23 @@
 version: "3.9"
 
 services:
-  # api:
-  #   build: .
-  #   restart: always
-  #   ports:
-  #     - 30001:30001
-  #   volumes:
-  #     - .:/app
-  #   depends_on:
-  #     - db
-  #     - redis
-  #   environment:
-  #     DATABASE_URL: postgres://postgres:password@db:5432/postgres
-  #     REDIS_URL: redis://redis:6379/0
+  api:
+    image: authapi
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:      
+      REDIS_URL: redis://redis:6379/0
+      DB_NAME: cool
+      DB_USER: postgres
+      DB_PASS: password
+      DB_PORT: 5432
+      DB_HOST: db
 
   db:
     image: postgres

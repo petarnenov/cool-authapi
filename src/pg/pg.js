@@ -13,7 +13,7 @@ const pool = new pg.Pool({
 })
 
 pool.on('connect', ()=>{
-    console.log('connected to the db');
+    console.log('Connected to the Postgres database');
 })
 pool.on('error', (err)=>{
     console.error(err);

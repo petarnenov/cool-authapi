@@ -5,3 +5,6 @@ up:
 
 down:
 	docker-compose down
+
+build: down
+	docker build -t authapi . 
