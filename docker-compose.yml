@@ -6,7 +6,7 @@ services:
   watchtower:    
     image: containrrr/watchtower
     restart: always
-    command: --interval 30 --cleanup --debug
+    command: --interval 604800 --cleanup --debug
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
