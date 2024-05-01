@@ -12,6 +12,7 @@ build:
 	make push
 
 pull:
+	docker rmi -f $(docker images -aq)
 	docker-compose pull authapi
 	make up
 
