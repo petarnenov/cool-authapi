@@ -6,9 +6,11 @@ services:
   watchtower:    
     image: containrrr/watchtower
     environment:
-      - WATCHTOWER_TRACE=true
-      - WATCHTOWER_DEBUG=true
-      - WATCHTOWER_DISABLE_CONTAINERS=watchtower,nginx,db,adminer,redis
+      WATCHTOWER_CLEANUP: true
+      WATCHTOWER_LABEL_ENABLE: true
+      WATCHTOWER_TRACE: true
+      WATCHTOWER_DEBUG: true
+      WATCHTOWER_DISABLE_CONTAINERS: watchtower,nginx,db,adminer,redis
     command: --interval 30 authapi
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
