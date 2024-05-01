@@ -24,4 +24,7 @@ clean: down
 greet:
 	@echo $(greet)
 
+swarm:
+	docker stack deploy -c docker-compose.yml authapi
+
 #watchtower to detect changes in the image and update the container
