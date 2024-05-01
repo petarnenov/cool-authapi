@@ -17,7 +17,7 @@ app.enable("trust proxy");//nginx required
 app.all("*", middleware.rateLimiter());
 
 //greet
-app.get("/", controller.greet);
+app.get("/api", controller.greet);
 //signup
 app.post("/api/auth/signup", controller.signUp);
 //login
