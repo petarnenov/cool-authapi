@@ -2,7 +2,7 @@
 greet := "Hello, world!"
 
 up: 
-	docker-compose up -d --force-recreate authapi
+	docker-compose up -d --force-recreate
 
 down:
 	docker-compose down
