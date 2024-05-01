@@ -5,6 +5,8 @@ import redis from "../redis/index.js";
 const refreshToken = async (req, res) => {
   const decodedRefreshToken = await jwt.getDecodedRefreshToken(req);
 
+  console.log("decodedRefreshToken", decodedRefreshToken);
+
   if (!decodedRefreshToken) {
     return response.error.userNotAuthenticated(res);
   }
