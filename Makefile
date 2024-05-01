@@ -1,7 +1,7 @@
 
 
 up: 
-	docker-compose up -d --no-deps authapi
+	docker-compose up -d
 
 down:
 	docker-compose down
