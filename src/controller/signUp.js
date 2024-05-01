@@ -9,7 +9,10 @@ const signUp = async (req, res) => {
     return response.error.userNameAndPasswordRequired(res);
   }
 
-  const result = await query.auth.getUserByName(username);
+  const result = await query.auth.getUserByName(username).catch((error) => {
+    return response.error.internalServerError(res);
+  });
+  
   if (result.rows.length) {
     return response.error.userAlreadyExists(res);
   }
@@ -19,6 +22,8 @@ const signUp = async (req, res) => {
   const userQuery = await query.auth.createUser({
     username,
     password: hashPassword,
+  }).catch((error) => {
+    return response.error.internalServerError(res);
   });
 
   const newUser = userQuery.rows[0];

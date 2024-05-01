@@ -20,7 +20,9 @@ const deleteUserById = async (req, res) => {
     return response.error.userNotAuthenticated(res);
   }
 
-  const userQuery = await query.auth.getUserById(id);
+  const userQuery = await query.auth.getUserById(id).catch((err) => {
+    return response.error.internalServerError(res);
+  })
 
   if (!userQuery.rows.length) {
     return response.error.userNotFound(res);
@@ -32,7 +34,9 @@ const deleteUserById = async (req, res) => {
     return response.error.userDeletedOrDeactivated(res);
   }
 
-  await query.auth.deleteUserById(id);
+  await query.auth.deleteUserById(id).catch((err) => {
+    return response.error.internalServerError(res);
+  });
 
   const payload = {
     username: user.username,

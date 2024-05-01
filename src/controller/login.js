@@ -5,13 +5,16 @@ import jwt from "../jwt/index.js";
 import redis from "../redis/index.js";
 
 const login = async (req, res) => {
+    console.log("somebody is trying to login", req.body)
     const { username, password } = req.body;
   
     if (!username || !password) {
       return response.error.userNameAndPasswordRequired(res);
     }
   
-    const userQuery = await query.auth.getUserByName(username);
+    const userQuery = await query.auth.getUserByName(username).catch((error) => {
+      return response.error.internalServerError(res);
+    });
   
     if (!userQuery.rows.length) {
       return response.error.userNotFound(res);

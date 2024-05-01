@@ -21,7 +21,9 @@ const updateUserById = async (req, res) => {
     return response.error.userNotAuthenticated(res);
   }
 
-  const userQuery = await query.auth.getUserById(id);
+  const userQuery = await query.auth.getUserById(id).catch((err) => {
+    return response.error.internalServerError(res);
+  });
 
   if (!userQuery.rows.length) {
     return response.error.userNotFound(res);
@@ -36,6 +38,8 @@ const updateUserById = async (req, res) => {
   const updateUserQuery = await query.auth.updateUserById({
     ...updatedData,
     id,
+  }).catch((err) => {
+    return response.error.internalServerError(res);
   });
 
   const updatedUser = updateUserQuery.rows[0];

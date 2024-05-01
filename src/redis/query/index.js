@@ -6,6 +6,8 @@ dotenv.config();
 const accessTokenExpiresIn = process.env.REDIS_ACCESS_TOKEN_EXPIRES_IN;
 const refreshTokenExpiresIn = process.env.REDIS_REFRESH_TOKEN_EXPIRES_IN;
 
+//TODO: add redis query functions
+//TODO: add error handling
 const setToken = async ({token,type,expireIn,userId}) => {    
     return await redis.client.multi().set(`${token}:${userId}:${type}`, token, {EX: expireIn}).exec();
 };

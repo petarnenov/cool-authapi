@@ -11,7 +11,9 @@ const getAllUsers = async (req, res) => {
     return response.error.userNotAuthenticated(res);
   }
 
-  const allUsersQuery = await query.auth.getAllUsers();  
+  const allUsersQuery = await query.auth.getAllUsers().catch((err) => {
+    return response.error.internalServerError(res);
+  });
 
   const users = allUsersQuery.rows;
 
