@@ -23,7 +23,6 @@ export const createRefreshToken = (payload) => {
 
 export const verify = (token) =>
   new Promise((resolve) => {
-    console.log("secret", secret)
     jwt.verify(token, secret, (error, decoded) => {
       if (error) {        
         return resolve(null)
@@ -45,7 +44,6 @@ export const getDecodedAccessToken = async (req) => {
 }
 
 export const getRefreshToken = (req) => {
-  console.log("req.body", req.body)
   return req.body.refreshToken;
 };
 
