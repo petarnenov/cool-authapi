@@ -4,7 +4,7 @@ version: "3.9"
 services:
 
   nginx:
-    image: petarnenov/authapi@latest
+    image: nginx:alpine
     restart: always
     ports:
       - 8082:80
@@ -14,10 +14,10 @@ services:
       - authapi
 
   authapi:
-    build : .
+    image : petarnenov/authapi
     restart: always
     deploy:
-      replicas: 4
+      replicas: 2
     volumes:
       - .:/app
     depends_on:
