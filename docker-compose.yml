@@ -5,17 +5,12 @@ services:
 
   watchtower:    
     image: containrrr/watchtower
-    environment:
-      WATCHTOWER_CLEANUP: true
-      WATCHTOWER_LABEL_ENABLE: true
-      WATCHTOWER_TRACE: true
-      WATCHTOWER_DEBUG: true
-      WATCHTOWER_DISABLE_CONTAINERS: watchtower,nginx,db,adminer,redis
-    command: --interval 30 authapi
+    restart: always
+    command: --interval 30 --cleanup --debug
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  nginx:   
+  nginx: 
     image: nginx:alpine
     restart: always
     ports:
@@ -25,7 +20,7 @@ services:
     depends_on:
       - authapi
 
-  authapi:    
+  authapi:
     build: .
     image : petarnenov/authapi
     restart: always
