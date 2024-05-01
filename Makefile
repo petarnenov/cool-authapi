@@ -6,13 +6,13 @@ up:
 
 down:
 	docker-compose down
+	docker image prune  
 
 build:
 	docker-compose build --force-rm --no-cache authapi
 	make push
 
-pull:
-	docker rmi -f $(docker images -aq)
+pull:	
 	docker-compose pull authapi
 	make up
 
