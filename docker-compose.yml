@@ -3,8 +3,7 @@ version: "3.9"
 
 services:
 
-  watchtower:
-    container_name: watchtower
+  watchtower:    
     image: containrrr/watchtower
     environment:
       - WATCHTOWER_TRACE=true
@@ -14,8 +13,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  nginx:
-    container_name: nginx
+  nginx:   
     image: nginx:alpine
     restart: always
     ports:
@@ -25,8 +23,7 @@ services:
     depends_on:
       - authapi
 
-  authapi:
-    container_name: authapi
+  authapi:    
     build: .
     image : petarnenov/authapi
     restart: always
@@ -59,8 +56,7 @@ services:
       - PORT=${PORT}
       - NODE_ENV=${NODE_ENV}
 
-  db:
-    container_name: db
+  db:    
     image: postgres
     restart: always
     ports:
@@ -74,8 +70,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER}
 
-  adminer:
-    container_name: adminer
+  adminer:    
     image: adminer
     restart: always
     ports:
