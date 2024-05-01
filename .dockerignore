@@ -1,7 +1,10 @@
 node_modules
+.git
 .vscode
 .env
+.gitignore
+.dockerignore
 docker-compose.yml
-Docekerfile
+Dockerfile
 Makefile
 package-lock.json

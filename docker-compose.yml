@@ -2,7 +2,7 @@
 version: "3.9"
 
 services:
-  api:
+  authapi:
     image: authapi
     restart: always
     ports:
@@ -12,13 +12,8 @@ services:
     depends_on:
       - db
       - redis
-    environment:      
-      REDIS_URL: redis://redis:6379/0
-      DB_NAME: cool
-      DB_USER: postgres
-      DB_PASS: password
-      DB_PORT: 5432
-      DB_HOST: db
+    env_file:
+      - .env
 
   db:
     image: postgres

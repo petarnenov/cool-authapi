@@ -16,7 +16,7 @@ export const logout = async (req, res) => {
   await redis.query.deleteAccessToken(user.id)(accessToken);
   await redis.query.deleteRefreshToken(user.id)(refreshToken);
 
-  response.success.logout(res);
+  response.success.auth.logout(res);
 };
 
 export default logout;

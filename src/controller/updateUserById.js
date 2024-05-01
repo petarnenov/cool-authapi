@@ -46,7 +46,7 @@ const updateUserById = async (req, res) => {
     admin: updatedUser.admin,
   };
 
-  response.success.updateUser(payload)(res);
+  response.success.auth.updateUser(payload)(res);
 };
 
 export default updateUserById;

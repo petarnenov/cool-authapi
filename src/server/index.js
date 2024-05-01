@@ -14,6 +14,8 @@ app.use(cors(config.cors));
 app.use(express.json());
 app.all("*", middleware.rateLimiter());
 
+//greet
+app.get("/", controller.greet);
 //signup
 app.post("/api/auth/signup", controller.signUp);
 //login

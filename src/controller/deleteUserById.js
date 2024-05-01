@@ -40,7 +40,7 @@ const deleteUserById = async (req, res) => {
     admin: user.admin,
   };
 
-  response.success.deleteUser(payload)(res);
+  response.success.auth.deleteUser(payload)(res);
 };
 
 export default deleteUserById;

@@ -23,7 +23,7 @@ const signUp = async (req, res) => {
 
   const newUser = userQuery.rows[0];
 
-  response.success.signUp({ ...newUser })(res);
+  response.success.auth.signUp({ ...newUser })(res);
 };
 
 export default signUp;

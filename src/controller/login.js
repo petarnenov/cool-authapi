@@ -45,7 +45,7 @@ const login = async (req, res) => {
       admin: user.admin,
     };
   
-    response.success.login(payload)(res);
+    response.success.auth.login(payload)(res);
   };
   
   export default login;

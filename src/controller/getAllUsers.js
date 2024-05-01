@@ -19,7 +19,7 @@ const getAllUsers = async (req, res) => {
     users,
   };
 
-  response.success.getAllUsers(payload)(res);
+  response.success.auth.getAllUsers(payload)(res);
 };
 
 export default getAllUsers;

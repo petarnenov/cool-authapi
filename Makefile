@@ -7,4 +7,7 @@ down:
 	docker-compose down
 
 build: down
-	docker build -t authapi . 
+	docker build --no-cache -t authapi . 
+
+clean: down
+	docker volume prune

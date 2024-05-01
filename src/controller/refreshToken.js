@@ -41,7 +41,7 @@ const refreshToken = async (req, res) => {
     admin: decodedRefreshToken.admin,
   };
 
-  response.success.refresh(payload)(res);
+  response.success.auth.refresh(payload)(res);
 };
 
 export default refreshToken;
