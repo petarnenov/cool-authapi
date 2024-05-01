@@ -6,8 +6,8 @@ up:
 down:
 	docker-compose down
 
-build: down
-	docker build -t authapi . 
+build:
+	docker build -t petarnenov/authapi . --no-cache
 
 clean: down
 	docker volume prune
