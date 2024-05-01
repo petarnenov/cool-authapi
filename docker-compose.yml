@@ -4,15 +4,18 @@ version: "3.9"
 services:
 
   watchtower:
+    container_name: watchtower
     image: containrrr/watchtower
     environment:
       - WATCHTOWER_TRACE=true
       - WATCHTOWER_DEBUG=true
+      - WATCHTOWER_DISABLE_CONTAINERS=watchtower,nginx,db,adminer,redis
     command: --interval 30 authapi
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   nginx:
+    container_name: nginx
     image: nginx:alpine
     restart: always
     ports:
@@ -23,6 +26,7 @@ services:
       - authapi
 
   authapi:
+    container_name: authapi
     build: .
     image : petarnenov/authapi
     restart: always
@@ -56,6 +60,7 @@ services:
       - NODE_ENV=${NODE_ENV}
 
   db:
+    container_name: db
     image: postgres
     restart: always
     ports:
@@ -70,6 +75,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
 
   adminer:
+    container_name: adminer
     image: adminer
     restart: always
     ports:
