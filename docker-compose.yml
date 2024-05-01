@@ -14,7 +14,7 @@ services:
       - authapi
 
   authapi:
-    image: authapi
+    build : .
     restart: always
     deploy:
       replicas: 4

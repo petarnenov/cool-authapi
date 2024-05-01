@@ -1,13 +1,13 @@
 
 
 up: 
-	docker-compose up -d --force-recreate
+	docker-compose up -d --build --no-deps
 
 down:
 	docker-compose down
 
 build: down
-	docker build --no-cache -t authapi . 
+	docker build -t authapi . 
 
 clean: down
 	docker volume prune
