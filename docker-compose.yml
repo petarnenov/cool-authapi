@@ -3,6 +3,15 @@ version: "3.9"
 
 services:
 
+  watchtower:
+    image: containrrr/watchtower
+    environment:
+      - WATCHTOWER_TRACE=true
+      - WATCHTOWER_DEBUG=true
+      - WATCHTOWER_POLL_INTERVAL=60
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   nginx:
     image: nginx:alpine
     restart: always
@@ -14,6 +23,7 @@ services:
       - authapi
 
   authapi:
+    build: .
     image : petarnenov/authapi
     restart: always
     deploy:
