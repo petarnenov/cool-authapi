@@ -1,7 +1,6 @@
 //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 import server from "./server/index.js";
 
-//TODO: add error handling
 const port = process.env.PORT || 3001;
 try {
   server.listen(port, () => {
