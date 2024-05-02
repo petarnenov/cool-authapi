@@ -44,9 +44,21 @@ const login = async (req, res, next) => {
     admin: user.admin,
   });
 
-  //TODO: add error handling
-  await redis.query.setAccessToken(user.id)(accessToken);
-  await redis.query.setRefreshToken(user.id)(refreshToken);
+  const statusAccessToken = await redis.query
+    .setAccessToken(user.id)(accessToken)
+    .catch((err) => [null, err]);
+
+  if (statusAccessToken[1]) {
+    return next(utils.customError(statusAccessToken[1], 500));
+  }
+
+  const statusRefreshToken = await redis.query
+    .setRefreshToken(user.id)(refreshToken)
+    .catch((err) => [null, err]);
+
+  if (statusRefreshToken[1]) {
+    return next(utils.customError(statusAccessToken[1], 500));
+  }
 
   req.user = {
     accessToken,

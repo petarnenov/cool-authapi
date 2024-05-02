@@ -68,8 +68,6 @@ const updateUserById = async (req, res, next) => {
     return next(utils.customError("Internal Server Error", 500));
   }
 
-  console.log("rowsUpdateUserById", rowsUpdateUserById);
-
   req.user = rowsUpdateUserById[0];
 
   next();

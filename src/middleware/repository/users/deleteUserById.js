@@ -53,8 +53,6 @@ const deleteUserById = async (req, res, next) => {
       };
     });
 
-  console.log("errorDelete", errorDelete);
-
   if (errorDelete) {
     return next(utils.customError("Internal Server Error", 500));
   }

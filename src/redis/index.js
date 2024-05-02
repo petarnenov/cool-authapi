@@ -1,10 +1,9 @@
-import  client, {redisStore as store} from './redis.js';
-import * as query from './query/index.js';
+import client from "./redis.js";
+import * as query from "./query/index.js";
 
 const redis = {
-    client,
-    store,
-    query
+  client,
+  query,
 };
 
 export default redis;
