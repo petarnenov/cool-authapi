@@ -19,7 +19,7 @@ const executeQuery = async (queryString, values) => {
     throw new Error("invalid values or values are not array");
   }
 
-  return pool.query(queryString, values);
+  return await pool.query(queryString, values);
 };
 
 export const createUser = async ({ username, password }) => {
@@ -27,21 +27,21 @@ export const createUser = async ({ username, password }) => {
 };
 
 export const getUserByName = async (username) => {
-  return executeQuery(queryStrings.getUserByName, [username]);
+  return await executeQuery(queryStrings.getUserByName, [username]);
 };
 
 export const getUserById = async (id) => {
-  return executeQuery(queryStrings.getUserById, [id]);
+  return await executeQuery(queryStrings.getUserById, [id]);
 };
 
 export const deleteUserById = async (id) => {
-  return executeQuery(queryStrings.deleteUserById, [id, false]);
+  return await executeQuery(queryStrings.deleteUserById, [id, false]);
 };
 
 export const updateUserById = async ({ id, admin }) => {
-  return executeQuery(queryStrings.updateUserById, [id, admin]);
+  return await executeQuery(queryStrings.updateUserById, [id, admin]);
 };
 
 export const getAllUsers = async () => {
-  return executeQuery(queryStrings.getAllUsers, []);
+  return await executeQuery(queryStrings.getAllUsers, []);
 };

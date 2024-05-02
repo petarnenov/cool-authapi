@@ -1,0 +1,17 @@
+export  default {
+  AUTH: {
+    LOGIN: "AUTH_LOGIN",
+    SIGNUP: "AUTH_SIGNUP",
+    LOGOUT: "AUTH_LOGOUT",
+    REFRESH: "AUTH_REFRESH",
+  },
+  USERS: {
+    GET_USER: "GET_USER",
+    DELETE_USER: "DELETE_USER",
+    GET_USERS: "GET_USERS",
+    UPDATE_USER: "UPDATE_USER",
+  },
+  GREET: {
+    HELLO: "HELLO",
+  },
+};

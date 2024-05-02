@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import controller from "../controller/index.js";
 import middleware from "../middleware/index.js";
+import routes from "../routes/index.js";
 import config from "./config.js";
 import dotenv from "dotenv";
 
@@ -13,24 +13,13 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(config.cors));
 app.use(express.json());
-app.enable("trust proxy");//nginx required
-app.all("*", middleware.rateLimiter());
+app.enable("trust proxy"); //nginx required
+app.all("*", middleware.logger.console, middleware.rateLimiter());
 
-//greet
-app.get("/api", controller.greet);
-//signup
-app.post("/api/auth/signup", controller.signUp);
-//login
-app.post("/api/auth/login", controller.login);
-//logout
-app.post("/api/auth/logout", middleware.authentication,controller.logout);
-//refresh token
-app.post("/api/auth/refresh", controller.refreshToken);
-//delete user
-app.delete("/api/auth/user/:id", middleware.authentication, controller.deleteUserById);
-//update user
-app.put("/api/auth/user/:id", middleware.authentication, controller.updateUserById);
-//get all users
-app.get("/api/auth/user", middleware.authentication, controller.getAllUsers);
+app.use(config.routes.baseRoute, routes.info);
+app.use(config.routes.baseRoute, routes.auth);
+app.use(config.routes.baseRoute, routes.users);
+
+app.use(middleware.errorHandler);
 
 export default app;

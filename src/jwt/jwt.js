@@ -11,7 +11,7 @@ const createToken = (payload, expiresIn) => {
   return jwt.sign(payload, secret, {
     expiresIn,
   });
-}
+};
 
 export const createAccessToken = (payload) => {
   return createToken(payload, accessTokenExpiresIn);
@@ -24,9 +24,9 @@ export const createRefreshToken = (payload) => {
 export const verify = (token) =>
   new Promise((resolve) => {
     jwt.verify(token, secret, (error, decoded) => {
-      if (error) {        
-        return resolve(null)
-      }     
+      if (error) {
+        return resolve(null);
+      }
       resolve(decoded);
     });
   });
@@ -41,7 +41,7 @@ export const getDecodedAccessToken = async (req) => {
     return null;
   }
   return await verify(token);
-}
+};
 
 export const getRefreshToken = (req) => {
   return req.body.refreshToken;
@@ -53,4 +53,4 @@ export const getDecodedRefreshToken = async (req) => {
     return null;
   }
   return await verify(refreshToken);
-}
+};

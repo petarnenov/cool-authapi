@@ -1,20 +1,22 @@
-import response from "../response/index.js";
-import jwt from "../jwt/index.js";
-import redis from "../redis/index.js";
+import jwt from "../../jwt/index.js";
+import redis from "../../redis/index.js";
+import utils from "../../utils/index.js";
 
-const refreshToken = async (req, res) => {
+const refresh = async (req, res, next) => {
   const decodedRefreshToken = await jwt.getDecodedRefreshToken(req);
 
   if (!decodedRefreshToken) {
-    return response.error.userNotAuthenticated(res);
+    return next(utils.customError(401, "Unauthorized"));
   }
 
-  const refreshToken = jwt.getRefreshToken(req); 
+  const refreshToken = jwt.getRefreshToken(req);
 
-  const tokenExists = await redis.query.getRefreshToken(decodedRefreshToken.id)(refreshToken);
+  const tokenExists = await redis.query.getRefreshToken(decodedRefreshToken.id)(
+    refreshToken
+  );
 
-  if(!tokenExists){
-    return response.error.userNotAuthenticated(res);
+  if (!tokenExists) {
+    return next(utils.customError(401, "Unauthorized"));
   }
 
   await redis.query.deleteRefreshToken(decodedRefreshToken.id)(refreshToken);
@@ -33,7 +35,7 @@ const refreshToken = async (req, res) => {
   await redis.query.setAccessToken(decodedRefreshToken.id)(newAccessToken);
   await redis.query.setRefreshToken(decodedRefreshToken.id)(newRefreshToken);
 
-  const payload = {
+  req.user = {
     accessToken: newAccessToken,
     refreshToken: newRefreshToken,
     username: decodedRefreshToken.username,
@@ -41,7 +43,7 @@ const refreshToken = async (req, res) => {
     admin: decodedRefreshToken.admin,
   };
 
-  response.success.auth.refresh(payload)(res);
+  next();
 };
 
-export default refreshToken;
+export default refresh;
