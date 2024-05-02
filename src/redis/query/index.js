@@ -84,7 +84,6 @@ export const deleteRefreshToken = (userId) => async (token) => {
 };
 
 export const incrAttempts = async (ip) => {
-  console.log("redis client: ", redis.client.isReady);
   if (!redis.client.isReady) {
     return await redisIsNotReady();
   }

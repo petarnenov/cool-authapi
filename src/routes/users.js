@@ -10,7 +10,7 @@ users.delete(
   middleware.authentication,
   middleware.validator.users.deleteUserById,
   middleware.repository.users.deleteUserById,
-  controller.deleteUserById
+  controller.deleteUserById,
 );
 
 //update user
@@ -19,7 +19,7 @@ users.patch(
   middleware.authentication,
   middleware.validator.users.updateUserById,
   middleware.repository.users.updateUserById,
-  controller.updateUserById
+  controller.updateUserById,
 );
 
 //get user by id
@@ -28,7 +28,7 @@ users.get(
   middleware.authentication,
   middleware.validator.users.getUserById,
   middleware.repository.users.getUserById,
-  controller.getUserById
+  controller.getUserById,
 );
 
 //get all users
@@ -37,7 +37,7 @@ users.get(
   middleware.authentication,
   middleware.validator.users.getAllUsers,
   middleware.repository.users.getAllUsers,
-  controller.getAllUsers
+  controller.getAllUsers,
 );
 
 export default users;

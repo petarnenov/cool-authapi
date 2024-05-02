@@ -1,4 +1,4 @@
-export  default {
+export default {
   AUTH: {
     LOGIN: "AUTH_LOGIN",
     SIGNUP: "AUTH_SIGNUP",

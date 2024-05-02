@@ -5,8 +5,8 @@ const signupSchema = Joi.object({
   password: Joi.string().min(2).max(30).required(),
 });
 
-const signup = (req, res, next) => {  
-  const { error } = signupSchema.validate(req.body);  
+const signup = (req, res, next) => {
+  const { error } = signupSchema.validate(req.body);
 
   if (error) {
     return next(error);

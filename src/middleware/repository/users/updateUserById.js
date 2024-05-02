@@ -10,7 +10,7 @@ const updateUserById = async (req, res, next) => {
 
   if (!currentUser) {
     return next(
-      utils.customError("You are not authorized to perform this action", 403)
+      utils.customError("You are not authorized to perform this action", 403),
     );
   }
 
@@ -18,7 +18,7 @@ const updateUserById = async (req, res, next) => {
 
   if (!(admin || userId === id)) {
     return next(
-      utils.customError("You are not authorized to perform this action", 403)
+      utils.customError("You are not authorized to perform this action", 403),
     );
   }
 

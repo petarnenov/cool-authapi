@@ -22,7 +22,7 @@ const getUserById = async (req, res, next) => {
   }
 
   req.user = rows[0];
-  
+
   next();
 };
 

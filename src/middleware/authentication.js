@@ -8,7 +8,9 @@ const authentication = async (req, res, next) => {
     return response.error.userNotAuthenticated(res);
   }
   const clientAccessToken = jwt.getAccessToken(req);
-  const serverAccessToken = await redis.query.getAccessToken(user.id)(clientAccessToken);
+  const serverAccessToken = await redis.query.getAccessToken(user.id)(
+    clientAccessToken,
+  );
 
   if (!serverAccessToken) {
     return response.error.userNotAuthenticated(res);

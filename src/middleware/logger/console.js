@@ -1,6 +1,6 @@
 const consoleLogger = (req, res, next) => {
   console.log(
-    `${new Date().toISOString()} - ${req.method} - ${req.url} - ${req.ip}`
+    `${new Date().toISOString()} - ${req.method} - ${req.url} - ${req.ip}`,
   );
   next();
 };

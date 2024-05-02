@@ -8,7 +8,7 @@ const getAllUsers = async (req, res, next) => {
 
   if (!admin) {
     return next(
-        utils.customError("You are not authorized to perform this action", 403)
+      utils.customError("You are not authorized to perform this action", 403),
     );
   }
 

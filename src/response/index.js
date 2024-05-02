@@ -1,9 +1,9 @@
-import * as  error from './error/index.js';
-import success from './success/index.js';
+import * as error from "./error/index.js";
+import success from "./success/index.js";
 
 const response = {
-    error,
-    success
-}
+  error,
+  success,
+};
 
 export default response;

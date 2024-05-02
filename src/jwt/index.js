@@ -1,3 +1,3 @@
-import * as jwt from './jwt.js'
+import * as jwt from "./jwt.js";
 
 export default jwt;

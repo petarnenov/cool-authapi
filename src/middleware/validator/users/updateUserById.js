@@ -11,7 +11,7 @@ const updateUserByIdParamsSchema = Joi.string().min(1).required();
 const updateUserById = (req, res, next) => {
   const { error } = updateUserByIdBodySchema.validate(req.body);
   const { error: errorParams } = updateUserByIdParamsSchema.validate(
-    req.params.id
+    req.params.id,
   );
 
   if (error || errorParams) {

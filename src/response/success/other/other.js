@@ -4,9 +4,9 @@ const other = (payload = {}, type) =>
   ({
     [constants.GREET.HELLO]: {
       status: 200,
-      statusMessage: "Hello World",     
+      statusMessage: "Hello World",
       ...payload,
-    },    
-  }[type]);
+    },
+  })[type];
 
 export default other;

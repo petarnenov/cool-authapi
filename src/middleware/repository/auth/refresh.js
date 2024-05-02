@@ -12,7 +12,7 @@ const refresh = async (req, res, next) => {
   const refreshToken = jwt.getRefreshToken(req);
 
   const tokenExists = await redis.query.getRefreshToken(decodedRefreshToken.id)(
-    refreshToken
+    refreshToken,
   );
 
   if (!tokenExists) {

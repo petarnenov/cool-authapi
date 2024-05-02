@@ -9,7 +9,7 @@ auth.post(
   "/auth/signup",
   middleware.validator.auth.signup,
   middleware.repository.auth.signup,
-  controller.signup
+  controller.signup,
 );
 
 //login
@@ -17,7 +17,7 @@ auth.post(
   "/auth/login",
   middleware.validator.auth.login,
   middleware.repository.auth.login,
-  controller.login
+  controller.login,
 );
 
 //logout
@@ -25,7 +25,7 @@ auth.post(
   "/auth/logout",
   middleware.authentication,
   middleware.repository.auth.logout,
-  controller.logout
+  controller.logout,
 );
 
 //refresh token
@@ -33,7 +33,7 @@ auth.post(
   "/auth/refresh",
   middleware.validator.auth.refresh,
   middleware.repository.auth.refresh,
-  controller.refreshToken
+  controller.refreshToken,
 );
 
 export default auth;

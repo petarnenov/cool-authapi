@@ -11,12 +11,10 @@ export const userNameAndPasswordRequired = (res) =>
 export const userAlreadyExists = (res) =>
   res.status(400).json({ status: 400, statusMessage: "User already exists" });
 export const userDeletedOrDeactivated = (res) =>
-  res
-    .status(404)
-    .json({
-      status: 404,
-      statusMessage: "User has been deleted or deactivated",
-    });
+  res.status(404).json({
+    status: 404,
+    statusMessage: "User has been deleted or deactivated",
+  });
 export const usernameOrPasswordIncorrect = (res) =>
   res
     .status(400)
@@ -43,5 +41,5 @@ export const message = {
 };
 
 const f = {
-  400: new Error("Bad request").status = 400,
-}
+  400: (new Error("Bad request").status = 400),
+};

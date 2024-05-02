@@ -4,8 +4,8 @@ import auth from "./auth/auth.js";
 import users from "./users/users.js";
 
 export default {
-    ...constants,
-    other,
-    auth,
-    users,
-    };
+  ...constants,
+  other,
+  auth,
+  users,
+};
