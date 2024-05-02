@@ -1,16 +1,10 @@
 import constants from "../constants.js";
 
-const defaultPayload = {
-  accessToken: null,
-  refreshToken: null,
-};
-
 const other = (payload = {}, type) =>
   ({
     [constants.GREET.HELLO]: {
       status: 200,
-      statusMessage: "Hello World",
-      ...defaultPayload,
+      statusMessage: "Hello World",     
       ...payload,
     },    
   }[type]);

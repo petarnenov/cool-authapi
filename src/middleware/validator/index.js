@@ -1,9 +1,7 @@
-import login from "./login.js";
-import signup from "./signup.js";
-import refresh from "./refresh.js";
+import auth from "./auth/index.js";
+import users from "./users/index.js";
 
 export default {
-    login,
-    signup,
-    refresh
-}
+  auth,
+  users,
+};

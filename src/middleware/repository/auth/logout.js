@@ -1,6 +1,6 @@
-import jwt from "../../jwt/index.js";
-import redis from "../../redis/index.js";
-import utils from "../../utils/index.js";
+import jwt from "../../../jwt/index.js";
+import redis from "../../../redis/index.js";
+import utils from "../../../utils/index.js";
 
 const logout = async (req, res, next) => {
   const user = req.user;
@@ -20,4 +20,3 @@ const logout = async (req, res, next) => {
 };
 
 export default logout;
-

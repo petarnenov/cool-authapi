@@ -13,7 +13,7 @@ const middleware = {
   errorHandler,
   validator,
   logger,
-  repository
+  repository,
 };
 
 export default middleware;

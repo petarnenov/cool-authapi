@@ -10,14 +10,13 @@ const executeQuery = async (queryString, values) => {
   return await pool.query(queryString, values);
 };
 
-export const createUser = async ({ username, password }) => {
-  return await executeQuery(queryStrings.createUser, [username, password]);
+const updateUserById = async ({ id, admin, active, password }) => {
+  return await executeQuery(queryStrings.updateUserById, [
+    id,
+    admin,
+    password,
+    active,
+  ]);
 };
 
-export const getUserByName = async (username) => {
-  return await executeQuery(queryStrings.getUserByName, [username]);
-};
-
-export const getUserById = async (id) => {
-  return await executeQuery(queryStrings.getUserById, [id]);
-};
+export default updateUserById;

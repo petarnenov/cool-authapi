@@ -1,50 +1,9 @@
-import query from "../query/index.js";
 import response from "../response/index.js";
 
-const deleteUserById = async (req, res) => {
-  const { id } = req.params;
-
-  if (!id) {
-    return response.error.invalidRequest(res);
-  }
-
-  const currentUser = req.user;
-
-  if (!currentUser) {
-    return response.error.invalidToken(res);
-  }
-
-  const { admin, id: userId } = currentUser;
-
-  if (!(admin || userId === id)) {
-    return response.error.userNotAuthenticated(res);
-  }
-
-  const userQuery = await query.auth.getUserById(id).catch((err) => {
-    return response.error.internalServerError(res);
-  })
-
-  if (!userQuery.rows.length) {
-    return response.error.userNotFound(res);
-  }
-
-  const user = userQuery.rows[0];
-
-  if (!user.active) {
-    return response.error.userDeletedOrDeactivated(res);
-  }
-
-  await query.auth.deleteUserById(id).catch((err) => {
-    return response.error.internalServerError(res);
-  });
-
-  const payload = {
-    username: user.username,
-    id: user.id,
-    admin: user.admin,
-  };
-
-  response.success.auth.deleteUser(payload)(res);
+const deleteUserById = (req, res) => {
+  res
+    .status(200)
+    .json(response.success.users(req.user, response.success.USERS.DELETE_USER));
 };
 
 export default deleteUserById;

@@ -1,34 +1,25 @@
 import constants from "../constants.js";
 
-const defaultPayload = {
-  accessToken: null,
-  refreshToken: null,
-};
-
 const auth = (payload = {}, type) =>
   ({
     [constants.AUTH.LOGIN]: {
       status: 200,
-      statusMessage: "Login successful",
-      ...defaultPayload,
+      statusMessage: "Login successful",     
       ...payload,
     },
     [constants.AUTH.SIGNUP]: {
       status: 201,
-      statusMessage: "User created successfully",
-      ...defaultPayload,
+      statusMessage: "User created successfully",     
       ...payload,
     },
     [constants.AUTH.LOGOUT]: {
       status: 200,
-      statusMessage: "User logout successfully",
-      ...defaultPayload,
+      statusMessage: "User logout successfully",     
       ...payload,
     },
     [constants.AUTH.REFRESH]: {
       status: 200,
-      statusMessage: "Token refreshed successfully",
-      ...defaultPayload,
+      statusMessage: "Token refreshed successfully",      
       ...payload,
     },
   }[type]);

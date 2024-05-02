@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import redis from "../../redis/index.js";
-import query from "../../query/index.js";
-import utils from "../../utils/index.js";
-import jwt from "../../jwt/index.js";
+import redis from "../../../redis/index.js";
+import query from "../../../query/index.js";
+import utils from "../../../utils/index.js";
+import jwt from "../../../jwt/index.js";
 
 const login = async (req, res, next) => {
   const { username, password } = req.body;
@@ -54,6 +54,7 @@ const login = async (req, res, next) => {
     username,
     id: user.id,
     admin: user.admin,
+    roles: user.roles,
   };
 
   next();

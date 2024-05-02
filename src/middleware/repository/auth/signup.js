@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
-import query from "../../query/index.js";
-import response from "../../response/index.js";
-import utils from "../../utils/index.js";
+import query from "../../../query/index.js";
+import response from "../../../response/index.js";
+import utils from "../../../utils/index.js";
 
 const signup = async (req, res, next) => {
   const { username, password } = req.body;
@@ -40,7 +40,7 @@ const signup = async (req, res, next) => {
   const newUser = rows[0];
   req.user = { ...newUser };
 
-  next()
+  next();
 };
 
 export default signup;

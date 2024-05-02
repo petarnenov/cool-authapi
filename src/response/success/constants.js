@@ -6,7 +6,7 @@ export  default {
     REFRESH: "AUTH_REFRESH",
   },
   USERS: {
-    GET_USER: "GET_USER",
+    GET_USER_BY_ID: "GET_USER_BY_ID",
     DELETE_USER: "DELETE_USER",
     GET_USERS: "GET_USERS",
     UPDATE_USER: "UPDATE_USER",

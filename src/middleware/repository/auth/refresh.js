@@ -1,6 +1,6 @@
-import jwt from "../../jwt/index.js";
-import redis from "../../redis/index.js";
-import utils from "../../utils/index.js";
+import jwt from "../../../jwt/index.js";
+import redis from "../../../redis/index.js";
+import utils from "../../../utils/index.js";
 
 const refresh = async (req, res, next) => {
   const decodedRefreshToken = await jwt.getDecodedRefreshToken(req);
