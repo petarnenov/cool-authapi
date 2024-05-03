@@ -1,6 +1,6 @@
 import jwt from "../../../jwt/index.js";
 import redis from "../../../redis/index.js";
-import utils from "../../../utils/index.js";
+import response from "../../../response/index.js";
 
 const logout = async (req, res, next) => {
   const user = req.user;
@@ -8,13 +8,50 @@ const logout = async (req, res, next) => {
   const refreshToken = jwt.getRefreshToken(req);
   const decodedRefreshToken = jwt.getDecodedRefreshToken(req);
 
+  console.log("delete user: ", user);
+
   if (!decodedRefreshToken) {
-    await redis.query.deleteAccessToken(user.id)(accessToken);
-    return next(utils.customError(401, "Unauthorized"));
+    const { error } = await redis.query
+      .deleteAccessToken(user.id)(accessToken)
+      .catch((err) => {
+        return {
+          error: response.error.auth(
+            null,
+            response.COMMON.INTERNAL_SERVER_ERROR
+          ),
+        };
+      });
+
+    if (error) {
+      return next(error);
+    }
+
+    return next(response.error.auth(null, response.USERS.INVALID_TOKEN));
   }
 
-  await redis.query.deleteAccessToken(user.id)(accessToken);
-  await redis.query.deleteRefreshToken(user.id)(refreshToken);
+  const { error: errorDeleteAccessToken } = await redis.query
+    .deleteAccessToken(user.id)(accessToken)
+    .catch((err) => {
+      return {
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      };
+    });
+
+  if (errorDeleteAccessToken) {
+    return next(errorDeleteAccessToken);
+  }
+
+  const { error: errorDeleteRefreshToken } = await redis.query
+    .deleteRefreshToken(user.id)(refreshToken)
+    .catch((err) => {
+      return {
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      };
+    });
+
+  if (errorDeleteRefreshToken) {
+    return next(errorDeleteRefreshToken);
+  }
 
   next();
 };

@@ -3,11 +3,10 @@ import response from "../../response/index.js";
 const errorHandler = (err, req, res, next) => {
   console.log("hit the error handler");
 
-  const status = err.status || 500;
+  err.status = err.status || 500;
+  err.statusMessage = err.statusMessage || "Internal Server Error";
 
-  const errorMessage = err.statusMessage || "Internal Server Error";
-
-  res.status(status).json(errorMessage);
+  res.status(err.status).json(err);
 };
 
 export default errorHandler;

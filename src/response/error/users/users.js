@@ -2,21 +2,21 @@ import constants from "../../constants.js";
 
 const users = (payload = {}, type) =>
   ({
-    [constants.JWT.INVALID_TOKEN]: {
+    [constants.USERS.INVALID_TOKEN]: {
       status: 400,
       statusMessage: "Invalid token",
       ...payload,
     },
-    [constants.USERS.USER_ALREADY_EXISTS]: {
+    [constants.USERS.ALREADY_EXISTS]: {
       status: 400,
       statusMessage: "User already exists",
       ...payload,
     },
-    [constants.USERS.USER_OR_PASSWORD_INCORRECT]: {
+    [constants.USERS.INCORRECT_CREDENTIALS]: {
       status: 403,
       statusMessage: "User or password is incorrect",
       ...payload,
     },
-  })[type];
+  }[type]);
 
 export default users;

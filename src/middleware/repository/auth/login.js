@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import redis from "../../../redis/index.js";
 import query from "../../../query/index.js";
-import utils from "../../../utils/index.js";
 import jwt from "../../../jwt/index.js";
+import response from "../../../response/index.js";
 
 const login = async (req, res, next) => {
   const { username, password } = req.body;
@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
     .getUserByName(username)
     .catch((err) => {
       return {
-        error: utils.customError(err.message, 500),
+        error: response.error.users(null, response.COMMON.UNAUTHORIZED),
       };
     });
 
@@ -20,17 +20,17 @@ const login = async (req, res, next) => {
   }
 
   if (!rows.length) {
-    next(utils.customError("User not found", 404));
+    next(response.error.users(null, response.COMMON.NOT_FOUND));
   }
 
   const user = rows[0];
   if (!user.active) {
-    return next(utils.customError("User has been deleted or deactivated", 401));
+    return next(response.error.users(null, response.USERS.HAS_BEEN_DELETED));
   }
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    return next(utils.customError("Username or password is incorrect", 401));
+    return next(response.error.users(null, response.COMMON.UNAUTHORIZED));
   }
 
   const accessToken = jwt.createAccessToken({
@@ -49,7 +49,9 @@ const login = async (req, res, next) => {
     .catch((err) => [null, err]);
 
   if (statusAccessToken[1]) {
-    return next(utils.customError(statusAccessToken[1], 500));
+    return next(
+      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
+    );
   }
 
   const statusRefreshToken = await redis.query
@@ -57,7 +59,9 @@ const login = async (req, res, next) => {
     .catch((err) => [null, err]);
 
   if (statusRefreshToken[1]) {
-    return next(utils.customError(statusAccessToken[1], 500));
+    return next(
+      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
+    );
   }
 
   req.user = {

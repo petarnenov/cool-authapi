@@ -1,5 +1,5 @@
-import auth from "./auth/index.js";
-import users from "./users/index.js";
+import auth from "./auth/auth.js";
+import users from "./users/users.js";
 
 export default {
   auth,
