@@ -1,5 +1,5 @@
 import query from "../../../query/index.js";
-import utils from "../../../utils/index.js";
+import response from "../../../response/index.js";
 
 const getAllUsers = async (req, res, next) => {
   const currentUser = req.user;
@@ -7,22 +7,17 @@ const getAllUsers = async (req, res, next) => {
   const { admin } = currentUser;
 
   if (!admin) {
-    return next(
-      utils.customError("You are not authorized to perform this action", 403),
-    );
+    return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
   const { rows, error } = await query.users.getAllUsers().catch((err) => {
     return {
-      error: {
-        message: err.message,
-        stack: err.stack,
-      },
+      error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
     };
   });
 
   if (error) {
-    return next(utils.customError("Internal Server Error", 500));
+    return next(error);
   }
 
   req.users = { users: [...rows] };

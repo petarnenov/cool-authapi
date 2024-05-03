@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import utils from "../../../utils/index.js";
 import query from "../../../query/index.js";
+import response from "../../../response/index.js";
 
 const updateUserById = async (req, res, next) => {
   const { id } = req.params;
@@ -9,40 +9,33 @@ const updateUserById = async (req, res, next) => {
   const currentUser = req.user;
 
   if (!currentUser) {
-    return next(
-      utils.customError("You are not authorized to perform this action", 403),
-    );
+    return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
   const { admin, id: userId } = currentUser;
 
   if (!(admin || userId === id)) {
-    return next(
-      utils.customError("You are not authorized to perform this action", 403),
-    );
+    return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
   const { rows, error } = await query.users.getUserById(id).catch((err) => {
     return {
-      error: {
-        message: err.message,
-        stack: err.stack,
-      },
+      error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
     };
   });
 
   if (error) {
-    return next(utils.customError("Internal Server Error", 500));
+    return next(error);
   }
 
   if (!rows.length) {
-    return next(utils.customError("User not found", 404));
+    return next(response.error.users(null, response.COMMON.NOT_FOUND));
   }
 
   const user = rows[0];
 
   if (!user.active) {
-    return next(utils.customError("User is not active", 400));
+    return next(response.error.users(null, response.USERS.HAS_BEEN_DELETED));
   }
 
   if (updatedData.password) {
@@ -57,15 +50,15 @@ const updateUserById = async (req, res, next) => {
       })
       .catch((err) => {
         return {
-          error: {
-            message: err.message,
-            stack: err.stack,
-          },
+          error: response.error.auth(
+            null,
+            response.COMMON.INTERNAL_SERVER_ERROR
+          ),
         };
       });
 
   if (errorUpdateUserById) {
-    return next(utils.customError("Internal Server Error", 500));
+    return next(errorUpdateUserById);
   }
 
   req.user = rowsUpdateUserById[0];

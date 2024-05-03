@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import query from "../../../query/index.js";
 import response from "../../../response/index.js";
-import utils from "../../../utils/index.js";
 
 const signup = async (req, res, next) => {
   const { username, password } = req.body;
@@ -10,7 +9,7 @@ const signup = async (req, res, next) => {
     .getUserByName(username)
     .catch((err) => {
       return {
-        error: utils.customError(err.message, 500),
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
       };
     });
 
@@ -19,7 +18,7 @@ const signup = async (req, res, next) => {
   }
 
   if (rowsFindByName.length) {
-    return next(utils.customError("User exists", 400));
+    return next(response.error.users(null, response.USERS.ALREADY_EXISTS));
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -30,7 +29,7 @@ const signup = async (req, res, next) => {
       password: hashPassword,
     })
     .catch((error) => {
-      return { error: utils.customError(error.message, 500) };
+      return { error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)};
     });
 
   if (error) {

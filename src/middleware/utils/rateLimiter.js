@@ -1,6 +1,6 @@
-import utils from "../../utils/index.js";
 import redis from "../../redis/index.js";
 import dotenv from "dotenv";
+import response from "../../response/index.js";
 
 dotenv.config();
 
@@ -13,11 +13,11 @@ const rateLimiter =
       .catch((err) => [null, err]);
 
     if (attempts[0] === null) {
-      return next(utils.customError(attempts[1], 500));
+      return next(response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR));
     }
 
     if (attempts[0] > ratePerMin) {
-      return next(utils.customError("Rate limit exceeded", 429));
+      return next(response.error.auth(null, response.AUTH.TOO_MANY_REQUESTS));
     }
     next();
   };
