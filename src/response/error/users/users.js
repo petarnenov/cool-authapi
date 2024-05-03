@@ -17,6 +17,11 @@ const users = (payload = {}, type) =>
       statusMessage: "User or password is incorrect",
       ...payload,
     },
-  }[type]);
+    [constants.USERS.HAS_BEEN_DELETED]: {
+      status: 400,
+      statusMessage: "User has been deleted",
+      ...payload,
+    },
+  })[type];
 
 export default users;

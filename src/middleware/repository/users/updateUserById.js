@@ -32,12 +32,6 @@ const updateUserById = async (req, res, next) => {
     return next(response.error.users(null, response.COMMON.NOT_FOUND));
   }
 
-  const user = rows[0];
-
-  if (!user.active) {
-    return next(response.error.users(null, response.USERS.HAS_BEEN_DELETED));
-  }
-
   if (updatedData.password) {
     updatedData.password = await bcrypt.hash(updatedData.password, 10);
   }
@@ -52,7 +46,7 @@ const updateUserById = async (req, res, next) => {
         return {
           error: response.error.auth(
             null,
-            response.COMMON.INTERNAL_SERVER_ERROR
+            response.COMMON.INTERNAL_SERVER_ERROR,
           ),
         };
       });

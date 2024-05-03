@@ -17,7 +17,7 @@ const authentication = async (req, res, next) => {
   if (serverAccessToken[0] === null) {
     return response.error.auth.auth(
       serverAccessToken[1],
-      response.COMMON.UNAUTHORIZED
+      response.COMMON.UNAUTHORIZED,
     );
   }
 

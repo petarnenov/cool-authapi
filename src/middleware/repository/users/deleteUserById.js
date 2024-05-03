@@ -7,7 +7,7 @@ const deleteUserById = async (req, res, next) => {
 
   if (!currentUser) {
     return next(
-      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
+      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
     );
   }
 

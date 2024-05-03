@@ -9,7 +9,7 @@ const signup = async (req, res, next) => {
     .getUserByName(username)
     .catch((err) => {
       return {
-        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
       };
     });
 
@@ -29,7 +29,9 @@ const signup = async (req, res, next) => {
       password: hashPassword,
     })
     .catch((error) => {
-      return { error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)};
+      return {
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      };
     });
 
   if (error) {

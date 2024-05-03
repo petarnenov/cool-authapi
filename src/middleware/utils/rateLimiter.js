@@ -13,7 +13,9 @@ const rateLimiter =
       .catch((err) => [null, err]);
 
     if (attempts[0] === null) {
-      return next(response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR));
+      return next(
+        response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      );
     }
 
     if (attempts[0] > ratePerMin) {

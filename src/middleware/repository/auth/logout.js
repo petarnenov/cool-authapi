@@ -17,7 +17,7 @@ const logout = async (req, res, next) => {
         return {
           error: response.error.auth(
             null,
-            response.COMMON.INTERNAL_SERVER_ERROR
+            response.COMMON.INTERNAL_SERVER_ERROR,
           ),
         };
       });

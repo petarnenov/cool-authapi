@@ -16,7 +16,9 @@ const updateUserById = (req, res, next) => {
   );
 
   if (error || errorParams) {
-    return next(response.error.auth(error || errorParams, response.COMMON.BAD_REQUEST));
+    return next(
+      response.error.auth(error || errorParams, response.COMMON.BAD_REQUEST),
+    );
   }
 
   next();
