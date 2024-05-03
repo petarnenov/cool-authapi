@@ -1,4 +1,4 @@
-import response from "../response/index.js";
+import response from "../../response/index.js";
 
 const errorHandler = (err, req, res, next) => {
   console.log("hit the error handler");

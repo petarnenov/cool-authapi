@@ -23,7 +23,7 @@ auth.post(
 //logout
 auth.post(
   "/auth/logout",
-  middleware.authentication,
+  middleware.auth.authentication,
   middleware.repository.auth.logout,
   controller.logout,
 );

@@ -1,6 +1,6 @@
-import jwt from "../jwt/index.js";
-import response from "../response/index.js";
-import redis from "../redis/index.js";
+import jwt from "../../jwt/index.js";
+import response from "../../response/index.js";
+import redis from "../../redis/index.js";
 
 const authentication = async (req, res, next) => {
   const user = await jwt.getDecodedAccessToken(req);

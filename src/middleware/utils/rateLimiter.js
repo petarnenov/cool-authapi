@@ -1,6 +1,5 @@
-import utils from "../utils/index.js";
-import redis from "../redis/index.js";
-import response from "../response/index.js";
+import utils from "../../utils/index.js";
+import redis from "../../redis/index.js";
 import dotenv from "dotenv";
 
 dotenv.config();
