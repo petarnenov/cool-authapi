@@ -70,8 +70,9 @@ const login = async (req, res, next) => {
     username,
     id: user.id,
     admin: user.admin,
-    roles: user.roles,
   };
+
+  console.log("repository: ", req.user);
 
   next();
 };

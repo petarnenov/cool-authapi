@@ -1,4 +1,5 @@
 import Joi from "joi";
+import response from "../../../response/index.js";
 
 const updateUserByIdBodySchema = Joi.object({
   active: Joi.bool(),
@@ -15,7 +16,7 @@ const updateUserById = (req, res, next) => {
   );
 
   if (error || errorParams) {
-    return next(error || errorParams);
+    return next(response.error.auth(error || errorParams, response.COMMON.BAD_REQUEST));
   }
 
   next();
