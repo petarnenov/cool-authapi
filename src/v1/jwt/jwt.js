@@ -1,7 +1,4 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const secret = process.env.JWT_SECRET;
 const accessTokenExpiresIn = process.env.JWT_ACCESS_TOKEN_EXPIRES_IN || "5min";

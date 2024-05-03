@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
 
   if (statusAccessToken[1]) {
     return next(
-      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
     );
   }
 
@@ -60,7 +60,7 @@ const login = async (req, res, next) => {
 
   if (statusRefreshToken[1]) {
     return next(
-      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR)
     );
   }
 
@@ -72,8 +72,6 @@ const login = async (req, res, next) => {
     admin: user.admin,
     roles: user.roles,
   };
-
-  console.log("repository: ", req.user);
 
   next();
 };

@@ -1,7 +1,4 @@
 import redis from "../index.js";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const accessTokenExpiresIn = process.env.REDIS_ACCESS_TOKEN_EXPIRES_IN;
 const refreshTokenExpiresIn = process.env.REDIS_REFRESH_TOKEN_EXPIRES_IN;

@@ -1,8 +1,5 @@
 import redis from "../../redis/index.js";
-import dotenv from "dotenv";
 import response from "../../response/index.js";
-
-dotenv.config();
 
 const rateLimiter =
   (ratePerMin = process.env.REDIS_REQ_PER_MINUTE || 60) =>

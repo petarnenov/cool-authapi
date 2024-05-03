@@ -1,4 +1,5 @@
 //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+import "dotenv/config";
 import server from "./server/index.js";
 
 const port = process.env.PORT || 3001;
