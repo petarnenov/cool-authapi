@@ -7,7 +7,7 @@ const getAllUsers = (req, res, next) => {
   const { error } = getAllUsersSchema.validate(req.user.admin);
 
   if (error) {
-    return next(response.error.auth(error, response.COMMON.BAD_REQUEST));
+    return next(response.error.auth(error, response.COMMON.UNAUTHORIZED));
   }
 
   next();

@@ -11,7 +11,7 @@ const login = async (req, res, next) => {
     .getUserByName(username)
     .catch((err) => {
       return {
-        error: response.error.users(null, response.COMMON.UNAUTHORIZED),
+        error: response.error.auth(null, response.COMMON.UNAUTHORIZED),
       };
     });
 
@@ -20,7 +20,7 @@ const login = async (req, res, next) => {
   }
 
   if (!rows.length) {
-    next(response.error.users(null, response.COMMON.NOT_FOUND));
+    next(response.error.auth(null, response.COMMON.NOT_FOUND));
   }
 
   const user = rows[0];
@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    return next(response.error.users(null, response.COMMON.UNAUTHORIZED));
+    return next(response.error.auth(null, response.COMMON.UNAUTHORIZED));
   }
 
   const accessToken = jwt.createAccessToken({

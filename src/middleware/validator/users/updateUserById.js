@@ -5,6 +5,7 @@ const updateUserByIdBodySchema = Joi.object({
   active: Joi.bool(),
   password: Joi.string().min(2).max(30),
   admin: Joi.bool(),
+  roles: Joi.array().items(Joi.string()),
 });
 
 const updateUserByIdParamsSchema = Joi.string().min(1).required();

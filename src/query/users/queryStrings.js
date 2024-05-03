@@ -1,6 +1,6 @@
 const queryStrings = {
   updateUserById:
-    "UPDATE users SET admin = COALESCE($2,admin), password = COALESCE($3, password), active = COALESCE($4,active), updated_at = DEFAULT WHERE id = $1 RETURNING id, username, active, admin, roles",
+    "UPDATE users SET admin = COALESCE($2,admin), password = COALESCE($3, password), active = COALESCE($4,active), roles = COALESCE($5, roles), updated_at = DEFAULT WHERE id = $1 RETURNING id, username, active, admin, roles",
   getAllUsers:
     "SELECT id, username, created_at, updated_at, active, admin,roles FROM users",
   getUserById:
