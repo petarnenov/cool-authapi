@@ -1,11 +1,8 @@
 import { Router } from "express";
+import controller from "../controller/index.js";
 
 const info = new Router();
 
-info.get("/info", (req, res) => {
-  res.status(200).json({
-    message: "This is a simple API",
-  });
-});
+info.get("/info", controller.greet);
 
 export default info;
