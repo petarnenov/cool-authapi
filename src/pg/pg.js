@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import pg from "pg";
 import dotenv from "dotenv";
 
@@ -16,8 +15,6 @@ const pool = new pg.Pool({
 pool.on("connect", () => {
   console.log("Connected to the Postgres database");
 });
-// pool.on('error', (err)=>{
-//     console.error(err);
-// })
+pool.on("error", console.error);
 
 export default pool;
