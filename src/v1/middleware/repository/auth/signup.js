@@ -14,7 +14,7 @@ const signup = async (req, res, next) => {
     });
 
   if (errorFindByName) {
-    return next(error);
+    return next(errorFindByName);
   }
 
   if (rowsFindByName.length) {
