@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.1.0",
   "type": "module",
-  "main": "src/index.js",
+  "main": "src/v1/index.js",
   "env": {
     "node": true,
     "commonjs": true,
@@ -11,8 +11,8 @@
     "es6": true
   },
   "scripts": {
-    "dev": "nodemon -L ./src/index.js",
-    "start": "node ./src/index.js",
+    "dev": "nodemon -L ./src/v1/index.js",
+    "start": "node ./src/v1/index.js",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "devDependencies": {

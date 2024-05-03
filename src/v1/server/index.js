@@ -16,9 +16,9 @@ app.use(express.json());
 app.enable("trust proxy"); //nginx required
 app.all("*", middleware.logger.console, middleware.utils.rateLimiter());
 
-app.use(config.routes.baseRoute, routes.info);
-app.use(config.routes.baseRoute, routes.auth);
-app.use(config.routes.baseRoute, routes.users);
+app.use(config.routes.version.v1, routes.info);
+app.use(config.routes.version.v1, routes.auth);
+app.use(config.routes.version.v1, routes.users);
 
 app.use(middleware.utils.errorHandler);
 

@@ -11,7 +11,9 @@ const cors = {
 };
 
 const routes = {
-  baseRoute: "/api",
+  version: {
+    v1: "/api/v1",
+  },
 };
 
 const config = {

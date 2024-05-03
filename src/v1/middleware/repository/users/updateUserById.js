@@ -38,7 +38,7 @@ const updateUserById = async (req, res, next) => {
     return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
-  if(!admin && updatedData.roles?.length){
+  if (!admin && updatedData.roles?.length) {
     return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
@@ -56,7 +56,7 @@ const updateUserById = async (req, res, next) => {
         return {
           error: response.error.auth(
             null,
-            response.COMMON.INTERNAL_SERVER_ERROR
+            response.COMMON.INTERNAL_SERVER_ERROR,
           ),
         };
       });

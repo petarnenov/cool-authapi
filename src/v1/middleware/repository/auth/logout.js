@@ -8,8 +8,6 @@ const logout = async (req, res, next) => {
   const refreshToken = jwt.getRefreshToken(req);
   const decodedRefreshToken = jwt.getDecodedRefreshToken(req);
 
-  console.log("delete user: ", user);
-
   if (!decodedRefreshToken) {
     const { error } = await redis.query
       .deleteAccessToken(user.id)(accessToken)
