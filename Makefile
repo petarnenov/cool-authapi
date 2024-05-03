@@ -6,7 +6,7 @@ up:
 
 down:
 	docker-compose down
-	docker image prune  
+	# docker image prune  
 
 build:
 	docker-compose build --force-rm --no-cache authapi
