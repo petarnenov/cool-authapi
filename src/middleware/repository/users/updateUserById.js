@@ -3,7 +3,7 @@ import query from "../../../query/index.js";
 import response from "../../../response/index.js";
 
 const updateUserById = async (req, res, next) => {
-  const { id } = req.params;
+  const { id: idToUpdate } = req.params;
   const updatedData = req.body;
 
   const currentUser = req.user;
@@ -14,15 +14,17 @@ const updateUserById = async (req, res, next) => {
 
   const { admin, id: userId } = currentUser;
 
-  if (!(admin || userId === id)) {
+  if (!(admin || userId === idToUpdate)) {
     return next(response.error.auth(null, response.COMMON.FORBIDDEN));
   }
 
-  const { rows, error } = await query.users.getUserById(id).catch((err) => {
-    return {
-      error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
-    };
-  });
+  const { rows, error } = await query.users
+    .getUserById(idToUpdate)
+    .catch((err) => {
+      return {
+        error: response.error.auth(null, response.COMMON.INTERNAL_SERVER_ERROR),
+      };
+    });
 
   if (error) {
     return next(error);
@@ -32,6 +34,10 @@ const updateUserById = async (req, res, next) => {
     return next(response.error.users(null, response.COMMON.NOT_FOUND));
   }
 
+  if (!admin && updatedData.admin) {
+    return next(response.error.auth(null, response.COMMON.FORBIDDEN));
+  }
+
   if (updatedData.password) {
     updatedData.password = await bcrypt.hash(updatedData.password, 10);
   }
@@ -39,7 +45,7 @@ const updateUserById = async (req, res, next) => {
   const { rows: rowsUpdateUserById, error: errorUpdateUserById } =
     await query.users
       .updateUserById({
-        id,
+        id: idToUpdate,
         ...updatedData,
       })
       .catch((err) => {
